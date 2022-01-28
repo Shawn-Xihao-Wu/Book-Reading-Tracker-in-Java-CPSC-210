@@ -1,4 +1,4 @@
-# Reading Tracking System
+# Book Reading Tracker
 ### CPSC 210 Term Project Phase 1
 #### *By Shawn Xihao Wu*
 

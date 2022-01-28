@@ -12,8 +12,22 @@ class Bookshelf {
 
     }
 
+    public void addBook(Book book) {
+
+    }
+
+
+    // getters
     public Book getBook() {
         return null;
+    }
+
+    public int getNumberOfBooks() {
+        return -1;
+    }
+
+    public double getTotalProgress() {
+        return 0.0;
     }
 
 

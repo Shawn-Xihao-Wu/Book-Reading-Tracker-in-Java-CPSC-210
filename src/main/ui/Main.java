@@ -21,8 +21,7 @@ public class Main {
         bookshelf.addBook(book);
 
         bookshelf.totalGenreTagsUpdate();
-        //System.out.print(bookshelf.getNumberOfGenreTags());
-        //System.out.print(bookshelf.getNumberOfBooks());
+
 
         for (List<Object> next : bookshelf.getAllGenreTags()) {
             System.out.print(next.toString());

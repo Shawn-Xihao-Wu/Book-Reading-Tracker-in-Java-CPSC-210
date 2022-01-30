@@ -78,6 +78,7 @@ public class Bookshelf {
                 } else {
                     // repeated! -> locate the genre repeated and then update
                     List<Object> repeatedGenre = locateGenre(nextTag);
+                    assert repeatedGenre != null;
                     int frequency = (int) repeatedGenre.get(1);
                     repeatedGenre.remove(1);
                     repeatedGenre.add(++frequency);

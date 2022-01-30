@@ -10,7 +10,7 @@ import java.util.List;
 // Represent a bookshelf that stores all the books I currently need to read,
 // stores all the genre tags and how many times each tag has been used
 // that keep track of my total progress
-class Bookshelf {
+public class Bookshelf {
 
     private int numberOfBooks;
     private List<Book> books;
@@ -75,6 +75,7 @@ class Bookshelf {
                     numberOfGenreTags++;
                 } else {
                     // repeated!
+
                     // -> locate the genre repeated
                     List<Object> repeatedGenre = locateGenre(nextTag);
 

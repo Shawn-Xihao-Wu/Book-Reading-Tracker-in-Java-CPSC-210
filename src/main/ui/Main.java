@@ -1,5 +1,9 @@
 package ui;
 
+import model.Book;
+import model.Bookshelf;
+
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,20 +12,22 @@ public class Main {
 
     public static void main(String[] args) {
 
-        List<List<Object>> t  = new ArrayList<>();
-        List<Object> t0 = new ArrayList<>();
-        t0.add("Philosophy");
-        t0.add(3);
+        Bookshelf bookshelf = new Bookshelf();
+        List<String> tag = new ArrayList<>();
+        tag.add("ege");
+        tag.add("tah");
 
-        List<Object> t1 = new ArrayList<>();
-        t1.add("Math");
-        t1.add(4);
+        Book book = new Book("title", 135, tag);
+        bookshelf.addBook(book);
 
-        t.add(t0);
-        t.add(t1);
+        bookshelf.totalGenreTagsUpdate();
+        //System.out.print(bookshelf.getNumberOfGenreTags());
+        //System.out.print(bookshelf.getNumberOfBooks());
 
-        System.out.print(t);
-        System.out.print(t.toString().contains("[Math, 3]"));
+        for (List<Object> next : bookshelf.getAllGenreTags()) {
+            System.out.print(next.toString());
+        }
+
 
     }
 

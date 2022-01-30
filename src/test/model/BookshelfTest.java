@@ -22,10 +22,10 @@ public class BookshelfTest {
     @Test
     void testConstructor() {
         assertEquals(0, testBookShelf.getNumberOfBooks());
-        assertEquals("[]", testBookShelf.getAllBooks().toString());
+        assertTrue(testBookShelf.getAllBooks().isEmpty());
 
         assertEquals(0, testBookShelf.getNumberOfGenreTags());
-        assertEquals("[]", testBookShelf.getAllGenreTags().toString());
+        assertTrue(testBookShelf.getAllGenreTags().isEmpty());
 
         assertEquals(0.0, testBookShelf.getTotalProgress());
 
@@ -106,7 +106,7 @@ public class BookshelfTest {
         List<String> testTags2 = new ArrayList<>();
         tagListsGenerator1(testTags1, testTags2);
 
-        Book testBook1 = new Book("title2", 1000, testTags1);
+        Book testBook1 = new Book("title1", 1000, testTags1);
         Book testBook2 = new Book("title2", 1000, testTags2);
         testBookShelf.addBook(testBook1);
         testBookShelf.addBook(testBook2);
@@ -117,8 +117,8 @@ public class BookshelfTest {
         List<String> testTags4 = new ArrayList<>();
         tagListsGenerator2(testTags3, testTags4);
 
-        Book testBook3 = new Book("title1", 1000, testTags3);
-        Book testBook4 = new Book("title2", 1000, testTags4);
+        Book testBook3 = new Book("title3", 1000, testTags3);
+        Book testBook4 = new Book("title4", 1000, testTags4);
         testBookShelf.addBook(testBook3);
         testBookShelf.addBook(testBook4);
     }

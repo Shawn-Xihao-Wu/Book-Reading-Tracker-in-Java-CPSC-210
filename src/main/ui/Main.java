@@ -31,6 +31,7 @@ public class Main {
         bookshelf.totalGenreTagsUpdate();
 
 
+
         for (List<Object> next : bookshelf.getAllGenreTags()) {
             System.out.print(next.toString());
         }

@@ -62,32 +62,27 @@ public class Bookshelf {
         numberOfGenreTags = 0;
 
         for (Book nextBook : books) {
+
             List<String> currentTagList = nextBook.getGenreTagsList();
             for (String nextTag : currentTagList) {
-                boolean repeated = checkRepeated(nextTag);
 
+                boolean repeated = checkRepeated(nextTag);
                 if (!repeated) {
-                    // not repeated -> add new node
+                    // not repeated -> add new node with frequency = 1
                     List<Object> newGenre = new ArrayList<>();
                     newGenre.add(nextTag);
                     newGenre.add(1);
                     genreTagsList.add(newGenre);
                     numberOfGenreTags++;
+
                 } else {
-                    // repeated!
-
-                    // -> locate the genre repeated
+                    // repeated! -> locate the genre repeated and then update
                     List<Object> repeatedGenre = locateGenre(nextTag);
-
-                    //update!
                     int frequency = (int) repeatedGenre.get(1);
-                    frequency++;
                     repeatedGenre.remove(1);
-                    repeatedGenre.add(frequency);
-
+                    repeatedGenre.add(++frequency);
+                    //pre-increment: increment the value first and then used in the statement
                 }
-
-
             }
         }
     }

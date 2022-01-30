@@ -111,6 +111,9 @@ public class Bookshelf {
         return this.totalProgress;
     }
 
+
+
+    // helper functions
     private double tenthPercentageHelper(double i) {
         double hundredth = Math.floor(10000 * i);
         double tenth = 10 * Math.floor(1000 * i);

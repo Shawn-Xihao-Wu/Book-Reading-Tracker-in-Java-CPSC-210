@@ -15,8 +15,11 @@ help others who feel the same.
 ## User Stories:
 
 - As a user, I want to be able to add books to my bookshelf
-- As a user, I want to be able to view the list of books on my bookshelf
-- As a user, I want to be able to select a book, enter and update how many pages I have read for this book
-- As a user, I want to be able to select a book and see my reading progress for that book in terms of percentage rounded to the nearest tenth decimal
-- As a user, I want to be able to see my total reading progress
 
+- As a user, I want to be able to view the list of books on my bookshelf
+- As a user, I want to be able to see how many books are in one certain book genre (1 book can have multiple genres)
+
+- As a user, I want to be able to see all my reading progress in terms of percentage rounded to the nearest tenth decimal
+- As a user, I want to be able to see my total reading progress in terms of percentage rounded to the nearest tenth decimal
+
+- As a user, I want to be able to select a book and update how many pages I have read for this book

@@ -81,48 +81,65 @@ public class BookshelfTest {
     @Test
     void testTotalGenreTagsUpdate() {
 
+        init1();
 
-        List<String> testTags1 = new ArrayList<>();
-        List<String> testTags2 = new ArrayList<>();
-        List<String> testTags3 = new ArrayList<>();
-        tagListsGenerator(testTags1, testTags2, testTags3);
+        testBookShelf.totalGenreTagsUpdate();
+        assertEquals(3, testBookShelf.getNumberOfGenreTags());
+        assertTrue(testBookShelf.getAllGenreTags().toString().contains("[Philosophy, 1]"));
+        assertTrue(testBookShelf.getAllGenreTags().toString().contains("[Psychology, 2]"));
+        assertTrue(testBookShelf.getAllGenreTags().toString().contains("[Statistics, 1]"));
 
-        Book testBook1 = new Book("title1", 1000, testTags1);
-        Book testBook2 = new Book("title2", 1000, testTags2);
-        Book testBook3 = new Book("title3", 1000, testTags3);
-
-
-        testBookShelf.addBook(testBook1);
-        testBookShelf.addBook(testBook2);
-        testBookShelf.addBook(testBook3);
+        init2();
 
         testBookShelf.totalGenreTagsUpdate();
         assertEquals(4, testBookShelf.getNumberOfGenreTags());
-
-        assertTrue(testBookShelf.getAllGenreTags().toString().contains("[Philosophy, 1]"));
-        assertFalse(testBookShelf.getAllGenreTags().toString().contains("[Philosophy, 2]"));
-
-        assertTrue(testBookShelf.getAllGenreTags().toString().contains("[Psychology, 3]"));
-        assertFalse(testBookShelf.getAllGenreTags().toString().contains("[Psychology, 2]"));
-
+        assertTrue(testBookShelf.getAllGenreTags().toString().contains("[Philosophy, 3]"));
+        assertTrue(testBookShelf.getAllGenreTags().toString().contains("[Psychology, 2]"));
         assertTrue(testBookShelf.getAllGenreTags().toString().contains("[Statistics, 2]"));
-        assertFalse(testBookShelf.getAllGenreTags().toString().contains("[Statistics, 1]"));
-
         assertTrue(testBookShelf.getAllGenreTags().toString().contains("[Novel, 1]"));
-        assertFalse(testBookShelf.getAllGenreTags().toString().contains("[Novel, 2]"));
+
 
     }
 
-    private void tagListsGenerator(List<String> t1, List<String> t2 , List<String> t3) {
+    private void init1() {
+        List<String> testTags1 = new ArrayList<>();
+        List<String> testTags2 = new ArrayList<>();
+        tagListsGenerator1(testTags1, testTags2);
+
+        Book testBook1 = new Book("title2", 1000, testTags1);
+        Book testBook2 = new Book("title2", 1000, testTags2);
+        testBookShelf.addBook(testBook1);
+        testBookShelf.addBook(testBook2);
+    }
+
+    private void init2() {
+        List<String> testTags3 = new ArrayList<>();
+        List<String> testTags4 = new ArrayList<>();
+        tagListsGenerator2(testTags3, testTags4);
+
+        Book testBook3 = new Book("title1", 1000, testTags3);
+        Book testBook4 = new Book("title2", 1000, testTags4);
+        testBookShelf.addBook(testBook3);
+        testBookShelf.addBook(testBook4);
+    }
+
+    private void tagListsGenerator1(List<String> t1, List<String> t2) {
+
         t1.add("Philosophy");
         t1.add("Psychology");
 
         t2.add("Psychology");
         t2.add("Statistics");
-        t2.add("Novel");
 
-        t3.add("Statistics");
-        t3.add("Psychology");
+    }
+
+    private void tagListsGenerator2(List<String> t1, List<String> t2) {
+
+        t1.add("Philosophy");
+        t1.add("Statistics");
+
+        t2.add("Novel");
+        t2.add("Philosophy");
     }
 
 }

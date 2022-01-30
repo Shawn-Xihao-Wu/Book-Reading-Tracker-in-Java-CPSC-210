@@ -1,8 +1,5 @@
 package model;
 
-import model.Book;
-
-
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -61,6 +58,9 @@ public class Bookshelf {
     //and update the frequency of this tag;
     //if the genre tag is old, simply update the frequency of the tag.
     public void totalGenreTagsUpdate() {
+        genreTagsList.clear();
+        numberOfGenreTags = 0;
+
         for (Book nextBook : books) {
             List<String> currentTagList = nextBook.getGenreTagsList();
             for (String nextTag : currentTagList) {

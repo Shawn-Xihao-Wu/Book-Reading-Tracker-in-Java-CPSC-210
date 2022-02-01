@@ -2,6 +2,7 @@ package model;
 
 
 
+import java.util.ArrayList;
 import java.util.List;
 
 // Represents a book that I am interested in reading that has
@@ -15,15 +16,16 @@ public class Book {
     private double progress;
     private List<String> genreTags;
 
-    // REQUIRES: title is not empty, totalPages > 1, and genreTags.size() >= 1
-    // EFFECTS: construct a book with a given title, total # of pages,
-    // and at least one genre it belongs to. Zero pages read and progress is zero.
-    public Book(String title, int totalPages, List<String> genreTags) {
+    // REQUIRES: title is not empty, totalPages >= 1
+    // EFFECTS: construct a book with a given title, total # of pages.
+    // Initially, zero pages are read, progress is zero, and the genreTags
+    // list is empty but not null;
+    public Book(String title, int totalPages) {
         this.title = title;
         this.totalPages = totalPages;
         this.pagesRead = 0;
         this.progress = 0.0;
-        this.genreTags = genreTags;
+        this.genreTags = new ArrayList<>();
     }
 
     // REQUIRES: newPages > # of pages read
@@ -36,11 +38,19 @@ public class Book {
         progress = percentageHelper();
     }
 
+    // REQUIRES: the input string cannot be empty
+    // MODIFIES: this
+    // EFFECTS: add the name of genre to the genreTags
+    public void addGenreTag(String genreTag) {
+        this.genreTags.add(genreTag);
+    }
+
+
     // REQUIRES: genreTag is not empty
     // MODIFIES: this
     // EFFECTS: add new genre tag to a book
-    public void addGenreTags(String genreTag) {
-        this.genreTags.add(genreTag);
+    public boolean containsGenreTag(String genreTag) {
+        return this.genreTags.contains(genreTag);
     }
 
 
@@ -63,13 +73,13 @@ public class Book {
         return this.progress;
     }
 
-    public String getGenreTagsString() {
-        return this.genreTags.toString();
-    }
-
-    public List<String> getGenreTagsList() {
+    public List<String> getGenreTags() {
         return this.genreTags;
     }
+
+//    public String getGenreTagsString() {
+//        return this.genreTags.toString();
+//    }
 
     private double percentageHelper() {
         double hundredth = Math.floor(10000 * this.pagesRead / this.totalPages);

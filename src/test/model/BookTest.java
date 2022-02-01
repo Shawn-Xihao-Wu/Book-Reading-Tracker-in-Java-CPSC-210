@@ -3,39 +3,50 @@ package model;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 class BookTest {
     private Book testBook;
 
     @BeforeEach
     void runBefore() {
-        List<String> genreTags = new ArrayList<>();
-        genreTags.add("Literature");
-        testBook = new Book("War and Peace", 521, genreTags);
+        testBook = new Book("War and Peace", 521);
     }
 
     @Test
     void testConstructor() {
+
         assertEquals("War and Peace", testBook.getTitle());
         assertEquals(521, testBook.getTotalPages());
         assertEquals(0, testBook.getPagesRead());
         assertEquals(0.0,testBook.getProgress());
-        assertEquals("[Literature]", testBook.getGenreTagsString());
+
+        assertNotNull(testBook.getGenreTags());
+        assertEquals(0,testBook.getGenreTags().size());
     }
 
     @Test
-    void testAddGenreTags() {
-        testBook.addGenreTags("Russian History");
-        assertEquals("[Literature, Russian History]", testBook.getGenreTagsString());
-        assertEquals(2, testBook.getGenreTagsList().size());
+    void testAddGenreTag() {
+        testBook.addGenreTag("Literature");
 
-        testBook.addGenreTags("Romantics");
-        assertEquals("[Literature, Russian History, Romantics]", testBook.getGenreTagsString());
-        assertEquals(3, testBook.getGenreTagsList().size());
+        assertEquals("Literature", testBook.getGenreTags().get(0));
+        assertEquals(1, testBook.getGenreTags().size());
+
+        testBook.addGenreTag("Political Science");
+        assertEquals("Political Science", testBook.getGenreTags().get(1));
+        assertEquals(2, testBook.getGenreTags().size());
+    }
+
+
+
+    @Test
+    void testContainsGenreTag() {
+        testBook.addGenreTag("Russian");
+        assertTrue(testBook.containsGenreTag("Russian"));
+
+        testBook.addGenreTag("History");
+        assertTrue(testBook.containsGenreTag("History"));
+
     }
 
 

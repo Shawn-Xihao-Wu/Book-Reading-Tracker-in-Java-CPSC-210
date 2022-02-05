@@ -55,8 +55,8 @@ public class Bookshelf {
 
     }
 
-    // REQUIRES: genreName not empty
-    // EFFECTS: return a list of books that has the input genre name
+    // REQUIRES: genreName is not empty
+    // EFFECTS: return a list of books that has the inputting genre name
     public List<Book> booksTaggedBy(String genreName) {
         List<Book> booksTagged = new LinkedList<>();
 
@@ -66,6 +66,19 @@ public class Bookshelf {
             }
         }
         return booksTagged;
+    }
+
+    // REQUIRES: genreName is not empty
+    // EFFECTS: return the number of books that is tagged by the inputting genre name
+    public int numOfBooksTaggedBy(String genreName) {
+        int num = 0;
+
+        for (Book nextBook : collectionOfBooks) {
+            if (nextBook.containsGenreTag(genreName)) {
+                num++;
+            }
+        }
+        return num;
     }
 
     //MODIFIES: this

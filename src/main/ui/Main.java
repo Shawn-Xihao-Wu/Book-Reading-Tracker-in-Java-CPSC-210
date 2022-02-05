@@ -14,11 +14,15 @@ public class Main {
     public static void main(String[] args) {
 
 
-        List<String> t = new ArrayList<>();
-        t.add("eg");
-        for (String n : t) {
-            System.out.print(n);
-        }
+
+        int r = 10 % 5;
+        int t = 3 % 1;
+        System.out.println(r);
+//        List<String> t = new ArrayList<>();
+//        t.add("eg");
+//        for (String n : t) {
+//            System.out.print(n);
+//        }
 
 //        List<String> t = new LinkedList<>();
 //        t.add("s1");

@@ -42,7 +42,10 @@ public class Book {
     // MODIFIES: this
     // EFFECTS: add the name of genre to the genreTags
     public void addGenreTag(String genreTag) {
-        this.genreTags.add(genreTag);
+        if (!this.genreTags.contains(genreTag)) {
+            this.genreTags.add(genreTag);
+        }
+
     }
 
 

@@ -12,12 +12,11 @@ import java.util.List;
 public class Main {
 
     public static void main(String[] args) {
+        new ReadingTrackerApp();
 
-
-
-        int r = 10 % 5;
-        int t = 3 % 1;
-        System.out.println(r);
+//        int r = 10 % 5;
+//        int t = 3 % 1;
+//        System.out.println(r);
 //        List<String> t = new ArrayList<>();
 //        t.add("eg");
 //        for (String n : t) {

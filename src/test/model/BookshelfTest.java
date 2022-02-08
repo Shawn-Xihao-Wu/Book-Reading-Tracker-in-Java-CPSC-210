@@ -143,7 +143,11 @@ public class BookshelfTest {
         assertTrue(genreList2.contains("Russian"));
         assertTrue(genreList2.contains("Philosophy"));
         assertTrue(genreList2.contains("Metaphysics"));
+    }
 
+    @Test
+    void testNumberOfBooksTaggedBy() {
+        //stub
     }
 //
 //    @Test

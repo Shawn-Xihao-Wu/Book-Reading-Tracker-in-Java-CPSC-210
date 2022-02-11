@@ -78,7 +78,7 @@ public class Bookshelf {
         for (Book b : collectionOfBooks) {
             List<String> bookTags = b.getGenreTags();
             for (String s : bookTags) {
-                boolean repeated = checkRepeated(s);
+                boolean repeated = checkRepeatedTag(s);
                 if (!repeated) {
                     collectionOfGenres.add(s);
                     numberOfGenres++;
@@ -144,7 +144,7 @@ public class Bookshelf {
     // REQUIRES: string is not empty
     // EFFECTS: check if the input genre tag has already
     // in the collectionOfGenres
-    private boolean checkRepeated(String tag) {
+    private boolean checkRepeatedTag(String tag) {
         for (String next : collectionOfGenres) {
             if (next.equals(tag)) {
                 return true;

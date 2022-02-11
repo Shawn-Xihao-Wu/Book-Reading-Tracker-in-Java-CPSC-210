@@ -87,8 +87,11 @@ public class ReadingTrackerApp {
         System.out.println("================================================");
     }
 
+    // REQUIRES: don't add the same book twice unless user wants to.
     // MODIFIES: this
-    // EFFECTS: add a book to bookshelf; add genre tags if intended
+    // EFFECTS: add a book with a title and known total page # to the bookshelf;
+    // user can also add genre tags to the book if user wants to
+    // if user enters the same genre tag twice for one book, the tag will only count once
     private void doAddBooks() {
 
         System.out.println("Enter book title:");
@@ -123,11 +126,11 @@ public class ReadingTrackerApp {
         System.out.println("\nAdded \"" + bookTitle + "\" to the bookshelf!");
     }
 
-
+    // MODIFIES: this
     // EFFECTS: view all the book on the bookshelf;
     // print out 1) an overview of books on the bookshelf,
     // i.e. the number of books, the number of genres, and a list of distinct genre names;
-    // print out 2) a list of all books, i.e. book titles and their genres
+    // print out 2) a list of all books, i.e. all book titles and their genres
     private void doViewAllBooks() {
         if (bookshelf.getNumberOfBooks() == 0) {
             System.out.println("No books on the bookshelf! Add books first!");
@@ -141,7 +144,7 @@ public class ReadingTrackerApp {
     // EFFECTS: user input genre name, and it
     // prints out 1) number of books tagged by such genre
     // and 2) all the book titles of books tagged by such genre;
-    // if no such book present, it prints that the number of such book is 0 and no book titles
+    // if no such book present, it prints that the number of such book is 0 with no book titles shown
     private void doViewBooksByGenre() {
         if (bookshelf.getNumberOfBooks() == 0) {
             System.out.println("No books on the bookshelf! Add books first!");
@@ -157,10 +160,12 @@ public class ReadingTrackerApp {
 
     }
 
-    // MODIFIES: this, Book
+    // REQUIRES: new # of pages read is always positive AND
+    // should not be greater than the total # of pages
+    // MODIFIES: this
     // EFFECTS: print a list of books, total pages of each book
     // and how many pages read for each book;
-    // user can select a book and update its pages read;
+    // user can select a book from the printed list and update its pages read;
     // user can also exit without changing anything
     private void doUpdateReadingProgress() {
         if (bookshelf.getNumberOfBooks() == 0) {
@@ -191,6 +196,7 @@ public class ReadingTrackerApp {
         }
     }
 
+    // MODIFIES: this
     // EFFECTS:
     // 1. print the total progress of all the books on the bookshelf
     // 2. print and list all the progresses of individual books with progress bar
@@ -209,7 +215,9 @@ public class ReadingTrackerApp {
         }
     }
 
-    // EFFECTS: print an overview of the info on the books on the bookshelf:
+    // MODIFIES: this
+    // EFFECTS: generate a new list of genre names from all the books on bookshelf;
+    // print an overview of the info on the books on the bookshelf:
     // the number of books, the number of genres, and distinct genre names
     private void printGeneralBookInfo() {
         bookshelf.updateGenreInfo();

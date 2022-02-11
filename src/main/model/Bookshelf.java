@@ -4,10 +4,11 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
-// Represent a bookshelf that stores all the books I currently need to read,
-// keeps track of how many distinct genres on the bookshelf,
-// how many books under certain genre
-// and has my total reading progress
+// Represent a bookshelf that stores all the books I currently need to read;
+// it keeps track of how many books I have and what are they;
+// it keeps track of how many distinct genres on the bookshelf,
+// how many books under certain genre,
+// and has my total reading progress.
 public class Bookshelf {
 
     private int numberOfBooks;
@@ -26,7 +27,7 @@ public class Bookshelf {
     // and the total progress is zero.
     public Bookshelf() {
         this.numberOfBooks = 0;
-        this.collectionOfBooks = new ArrayList<>();
+        this.collectionOfBooks = new LinkedList<>();
         this.numberOfGenres = 0;
         this.collectionOfGenres = new ArrayList<>();
         this.totalProgress = 0.0;
@@ -69,7 +70,8 @@ public class Bookshelf {
     }
 
     //MODIFIES: this
-    //EFFECTS:
+    //EFFECTS: update how many distinct genres there are on the bookshelf
+    // and what are they; store the genre names in a list
     public void updateGenreInfo() {
         collectionOfGenres.clear();
         numberOfGenres = 0;
@@ -89,7 +91,7 @@ public class Bookshelf {
     // MODIFIES: this
     // EFFECTS: update the total progress by
     // summing up individual book progress and
-    // taking the average
+    // taking the average (rounded to the nearest tenth)
     public void totalProgressUpdate() {
         if (this.numberOfBooks == 0) {
             this.totalProgress = 0.0;
@@ -101,7 +103,6 @@ public class Bookshelf {
 
             this.totalProgress = tenthPercentageHelper(i / this.numberOfBooks / 100);
         }
-
     }
 
     // getters

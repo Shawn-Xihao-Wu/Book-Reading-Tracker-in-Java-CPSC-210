@@ -3,9 +3,7 @@ package ui;
 import model.Book;
 import model.Bookshelf;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 import java.util.Scanner;
 
 // Modelled after TellerApp.java
@@ -76,17 +74,17 @@ public class ReadingTrackerApp {
 
     // EFFECTS: display main menu for user to choose
     private void displayMenu() {
-        System.out.println("\n================================");
+        System.out.println("\n================================================");
         System.out.println("Hi, I am a book reading tracker! "
-                + "I help you manage your books on your bookshelf");
+                + "\nI help you to manage your books on your bookshelf!");
         System.out.println("\tSelect below for commands:");
-        System.out.println("\ta --> add books to bookshelf");
-        System.out.println("\tv --> view all books on bookshelf");
-        System.out.println("\tg --> view books by genre");
-        System.out.println("\tr --> view and update pages read");
-        System.out.println("\tp --> progress report");
-        System.out.println("\tq --> quit");
-        System.out.println("================================");
+        System.out.println("\t\ta --> add books to the bookshelf");
+        System.out.println("\t\tv --> view all books on the bookshelf");
+        System.out.println("\t\tg --> view books by genre");
+        System.out.println("\t\tr --> view and update pages read");
+        System.out.println("\t\tp --> progress report");
+        System.out.println("\t\tq --> quit");
+        System.out.println("================================================");
     }
 
     // MODIFIES: this
@@ -167,9 +165,6 @@ public class ReadingTrackerApp {
             }
         }
 
-
-
-
     }
 
     // MODIFIES: this, Book
@@ -230,7 +225,7 @@ public class ReadingTrackerApp {
         System.out.println("\nTotal Progress: " + bookshelf.getTotalProgress() + "%\n");
         for (Book next : bookshelf.getAllBooks()) {
             int i = (int) Math.floor(next.getProgress() / 10);
-            System.out.println(next.getTitle() + ": " + next.getProgress() + "% "
+            System.out.println("<" + next.getTitle() + ">: " + next.getProgress() + "% "
                     + str1.substring(0, i) + str2.substring(i));
         }
     }

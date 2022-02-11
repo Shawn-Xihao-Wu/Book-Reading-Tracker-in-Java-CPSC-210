@@ -5,10 +5,9 @@ import java.util.LinkedList;
 import java.util.List;
 
 // Represent a bookshelf that stores all the books I currently need to read;
-// it keeps track of how many books I have and what are they;
-// it keeps track of how many distinct genres on the bookshelf,
-// how many books under certain genre,
-// and has my total reading progress.
+// it stores how many books I have and what are they;
+// it stores how many distinct genres on the bookshelf and what are they;
+// it stores of my total reading progress.
 public class Bookshelf {
 
     private int numberOfBooks;

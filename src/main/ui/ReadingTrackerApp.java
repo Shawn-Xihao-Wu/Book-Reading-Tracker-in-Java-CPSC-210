@@ -130,23 +130,9 @@ public class ReadingTrackerApp {
         if (bookshelf.getNumberOfBooks() == 0) {
             System.out.println("No books on the bookshelf! Add books first!");
         } else {
-            for (Book next : bookshelf.getAllBooks()) {
-
-                System.out.println("<" + next.getTitle() + ">");
-                if (next.getGenreTags().isEmpty()) {
-                    System.out.println("Genre: None");
-                } else {
-                    System.out.print("Genre: ");
-                    List<String> tagList = next.getGenreTags();
-                    for (int i = 0; i < tagList.size(); i++) {
-                        if (i == (tagList.size() - 1)) {
-                            System.out.print(tagList.get(i) + "\n");
-                        } else {
-                            System.out.print(tagList.get(i) + ", ");
-                        }
-                    }
-                }
-            }
+            System.out.println("\n### BOOK INFO REPORT ###");
+            printGeneralBookInfo();
+            printAllBooksAndTheirGenres();
         }
     }
 
@@ -206,20 +192,9 @@ public class ReadingTrackerApp {
     // 4. list all the progresses of individual books
     private void doProgressReport() {
         bookshelf.totalProgressUpdate();
-        bookshelf.updateGenreInfo();
-        List<String> genreList = bookshelf.getAllGenres();
 
         System.out.println("\n### BOOK READING PROGRESS REPORT ###");
-        System.out.println("\nNumber of books: " + bookshelf.getNumberOfBooks());
-        System.out.println("\nNumber of book genres: " + bookshelf.getNumberOfGenres());
-        System.out.println("\nBook genres: ");
-        for (int i = 0; i < genreList.size(); i++) {
-            if ((i + 1) == genreList.size()) {
-                System.out.print(genreList.get(i) + "\n");
-            } else {
-                System.out.print(genreList.get(i) + ", ");
-            }
-        }
+
         String str1 = "◆◆◆◆◆◆◆◆◆◆";
         String str2 = "◇◇◇◇◇◇◇◇◇◇";
         System.out.println("\nTotal Progress: " + bookshelf.getTotalProgress() + "%\n");
@@ -227,6 +202,43 @@ public class ReadingTrackerApp {
             int i = (int) Math.floor(next.getProgress() / 10);
             System.out.println("<" + next.getTitle() + ">: " + next.getProgress() + "% "
                     + str1.substring(0, i) + str2.substring(i));
+        }
+    }
+
+    // EFFECTS: print an overview of the info on the books on the bookshelf:
+    // the number of books, the number of genres, and distinct genre names
+    private void printGeneralBookInfo() {
+        bookshelf.updateGenreInfo();
+        List<String> genreList = bookshelf.getAllGenres();
+        System.out.println("\nNumber of books: " + bookshelf.getNumberOfBooks());
+        System.out.println("\nNumber of book genres: " + bookshelf.getNumberOfGenres());
+        System.out.println("\nNames of book genre:");
+        for (int i = 0; i < genreList.size(); i++) {
+            if ((i + 1) == genreList.size()) {
+                System.out.print(genreList.get(i) + "\n");
+            } else {
+                System.out.print(genreList.get(i) + ", ");
+            }
+        }
+    }
+
+    // EFFECTS: print all books on the bookshelf and their corresponding genres
+    private void printAllBooksAndTheirGenres() {
+        for (Book next : bookshelf.getAllBooks()) {
+            System.out.println("\n<" + next.getTitle() + ">");
+            if (next.getGenreTags().isEmpty()) {
+                System.out.println("Genre: None");
+            } else {
+                System.out.print("Genre: ");
+                List<String> tagList = next.getGenreTags();
+                for (int i = 0; i < tagList.size(); i++) {
+                    if (i == (tagList.size() - 1)) {
+                        System.out.print(tagList.get(i) + "\n");
+                    } else {
+                        System.out.print(tagList.get(i) + ", ");
+                    }
+                }
+            }
         }
     }
 

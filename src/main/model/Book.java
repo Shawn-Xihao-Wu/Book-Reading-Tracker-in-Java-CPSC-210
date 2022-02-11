@@ -5,8 +5,9 @@ package model;
 import java.util.ArrayList;
 import java.util.List;
 
-// Represents a book that I am interested in reading that has
-// a title, total page #, # of pages I have read, progress in terms of percentage,
+// Represents a book that I am interested in reading;
+// it has a title, total page #, # of pages I have read,
+// progress in terms of percentage rounded to the nearest tenth,
 // and the genres it belongs to.
 public class Book {
 
@@ -17,8 +18,8 @@ public class Book {
     private List<String> genreTags;
 
     // REQUIRES: title is not empty, totalPages >= 1
-    // EFFECTS: construct a book with a given title, total # of pages.
-    // Initially, zero pages are read, progress is zero, and the genreTags
+    // EFFECTS: construct a book with a given title, total # of pages;
+    // initially, zero pages are read, progress is zero, and the genreTags
     // list is empty but not null;
     public Book(String title, int totalPages) {
         this.title = title;
@@ -41,6 +42,7 @@ public class Book {
     // REQUIRES: the input string cannot be empty
     // MODIFIES: this
     // EFFECTS: add the name of genre to the genreTags
+    // only if the genre is new
     public void addGenreTag(String genreTag) {
         if (!this.genreTags.contains(genreTag)) {
             this.genreTags.add(genreTag);
@@ -80,10 +82,9 @@ public class Book {
         return this.genreTags;
     }
 
-//    public String getGenreTagsString() {
-//        return this.genreTags.toString();
-//    }
+    // helper functions
 
+    // EFFECTS: round the progress percentage to the nearest tenth
     private double percentageHelper() {
         double hundredth = Math.floor(10000 * this.pagesRead / this.totalPages);
         double tenth = 10 * Math.floor(1000 * this.pagesRead / this.totalPages);

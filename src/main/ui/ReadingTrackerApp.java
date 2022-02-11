@@ -64,7 +64,7 @@ public class ReadingTrackerApp {
     }
 
     // MODIFIES: this
-    // EFFECTS: initializes a bookshelf
+    // EFFECTS: initializes a bookshelf and Scanner
     private void init() {
         bookshelf = new Bookshelf();
 
@@ -72,7 +72,7 @@ public class ReadingTrackerApp {
         input.useDelimiter("\n");
     }
 
-    // EFFECTS: display main menu for user to choose
+    // EFFECTS: display the main menu for user to choose
     private void displayMenu() {
         System.out.println("\n================================================");
         System.out.println("Hi, I am a book reading tracker! "
@@ -88,7 +88,7 @@ public class ReadingTrackerApp {
     }
 
     // MODIFIES: this
-    // EFFECTS: add a book to bookshelf and add genre tags if intended
+    // EFFECTS: add a book to bookshelf; add genre tags if intended
     private void doAddBooks() {
 
         System.out.println("Enter book title:");
@@ -124,8 +124,10 @@ public class ReadingTrackerApp {
     }
 
 
-    // EFFECTS: view all the book on the bookshelf
-    // list the book names and their genre
+    // EFFECTS: view all the book on the bookshelf;
+    // print out 1) an overview of books on the bookshelf,
+    // i.e. the number of books, the number of genres, and a list of distinct genre names;
+    // print out 2) a list of all books, i.e. book titles and their genres
     private void doViewAllBooks() {
         if (bookshelf.getNumberOfBooks() == 0) {
             System.out.println("No books on the bookshelf! Add books first!");
@@ -137,7 +139,9 @@ public class ReadingTrackerApp {
     }
 
     // EFFECTS: user input genre name, and it
-    // gives the book list tag by the genre
+    // prints out 1) number of books tagged by such genre
+    // and 2) all the book titles of books tagged by such genre;
+    // if no such book present, it prints that the number of such book is 0 and no book titles
     private void doViewBooksByGenre() {
         if (bookshelf.getNumberOfBooks() == 0) {
             System.out.println("No books on the bookshelf! Add books first!");
@@ -154,8 +158,10 @@ public class ReadingTrackerApp {
     }
 
     // MODIFIES: this, Book
-    // EFFECTS: select a book from the list of book printed
-    // and update how many pages read for this book
+    // EFFECTS: print a list of books, total pages of each book
+    // and how many pages read for each book;
+    // user can select a book and update its pages read;
+    // user can also exit without changing anything
     private void doUpdateReadingProgress() {
         if (bookshelf.getNumberOfBooks() == 0) {
             System.out.println("No books on bookshelf! Add books first!");
@@ -186,10 +192,8 @@ public class ReadingTrackerApp {
     }
 
     // EFFECTS:
-    // 1. print how many books on the bookshelf
-    // 2. list all the distinct genres name and how many books under them
-    // 3. print total progress
-    // 4. list all the progresses of individual books
+    // 1. print the total progress of all the books on the bookshelf
+    // 2. print and list all the progresses of individual books with progress bar
     private void doProgressReport() {
         bookshelf.totalProgressUpdate();
 

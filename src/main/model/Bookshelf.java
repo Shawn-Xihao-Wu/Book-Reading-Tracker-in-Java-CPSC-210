@@ -1,14 +1,23 @@
 package model;
 
+import persistence.Writable;
+import org.json.JSONObject;
+import org.json.JSONArray;
+
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+
+
+
+// Modelled the save and load function after WorkRoomApp.java
+// source: https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo.git
 
 // Represent a bookshelf that stores all the books I currently need to read;
 // it stores how many books I have and what are they;
 // it stores how many distinct genres on the bookshelf and what are they;
 // it stores of my total reading progress.
-public class Bookshelf {
+public class Bookshelf implements Writable {
 
     private int numberOfBooks;
     private List<Book> collectionOfBooks;
@@ -104,6 +113,7 @@ public class Bookshelf {
         }
     }
 
+
     // getters
     public List<Book> getAllBooks() {
         return this.collectionOfBooks;
@@ -151,5 +161,30 @@ public class Bookshelf {
             }
         }
         return false;
+    }
+
+    // for read and load functions
+
+    @Override
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        //json.put("totalProgress", totalProgress);
+        //json.put("numOfGenres", numberOfGenres);
+        //json.put("collectionOfGenres", collectionOfGenres);
+        //json.put("numOfBooks", numberOfBooks);
+        json.put("collectionOfBooks", booksToJson());
+
+        return json;
+    }
+
+    // EFFECTS: return books in this bookshelf as a JSON array
+    private JSONArray booksToJson() {
+        JSONArray jsonArray = new JSONArray();
+
+        for (Book next : collectionOfBooks) {
+            jsonArray.put(next.toJson());
+        }
+
+        return jsonArray;
     }
 }

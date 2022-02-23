@@ -1,0 +1,30 @@
+{"collectionOfBooks": [
+    {
+        "genreTags": [],
+        "pagesRead": 0,
+        "totalPages": 383,
+        "progress": 0,
+        "title": "Minds and Machines"
+    },
+    {
+        "genreTags": [
+            "Russian",
+            "Marxism"
+        ],
+        "pagesRead": 0,
+        "totalPages": 1456,
+        "progress": 0,
+        "title": "Capital"
+    },
+    {
+        "genreTags": [
+            "History",
+            "Russian",
+            "Novel"
+        ],
+        "pagesRead": 45,
+        "totalPages": 742,
+        "progress": 6.1,
+        "title": "The Brothers Karamazov"
+    }
+]}

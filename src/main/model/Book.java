@@ -1,13 +1,22 @@
 package model;
 
+import org.json.JSONObject;
+import org.json.JSONArray;
+import persistence.Writable;
+
 import java.util.ArrayList;
 import java.util.List;
+
+
+
+// Modelled the save and load function after WorkRoomApp.java
+// source: https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo.git
 
 // Represents a book that I am interested in reading;
 // it has a title, total page #, # of pages I have read,
 // progress in terms of percentage rounded to the nearest tenth,
 // and the genres it belongs to.
-public class Book {
+public class Book implements Writable {
 
     private String title;
     private int totalPages;
@@ -57,7 +66,6 @@ public class Book {
     }
 
 
-
     // getters
 
     public String getTitle() {
@@ -94,6 +102,20 @@ public class Book {
             return Math.floor(1 + 1000 * this.pagesRead / this.totalPages) / 10;
         }
 
+    }
+
+    // for read and load functions
+
+    @Override
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        json.put("title", title);
+        json.put("totalPages", totalPages);
+        json.put("pagesRead", pagesRead);
+        json.put("progress", progress);
+        json.put("genreTags", genreTags);
+
+        return json;
     }
 
 }

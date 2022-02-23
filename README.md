@@ -29,4 +29,5 @@ help others who feel the same.
 - As a user, I want to be able to see all my reading progress for each book in terms of percentage rounded to the nearest tenth decimal
 - As a user, I want to be able to see my total reading progress in terms of percentage rounded to the nearest tenth decimal
 
-
+- As a user, I want to be able to save current collection of books to file
+- As a user, I want to be able to load previous collection of books from file and resume exactly where I left off last time

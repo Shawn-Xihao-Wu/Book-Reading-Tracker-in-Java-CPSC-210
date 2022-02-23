@@ -3,31 +3,53 @@ package ui;
 import model.Book;
 import model.Bookshelf;
 
+import persistence.JsonWriter;
+import persistence.JsonReader;
+
+import java.io.FileNotFoundException;
+import java.io.IOException;
+
 import java.util.List;
 import java.util.Scanner;
 
-// Modelled after TellerApp.java
+
+
+// Modelled the code structure after TellerApp.java
 // source: https://github.students.cs.ubc.ca/CPSC210/TellerApp.git
+// Modelled the save and load function after WorkRoomApp.java
+// source: https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo.git
 
 // Reading Tracker Application
 public class ReadingTrackerApp {
-    private Book book;
-    private Bookshelf bookshelf;
+    private static final String JSON_STORE = "./data/bookshelf.json";
+    private JsonWriter jsonWriter;
+    private JsonReader jsonReader;
+
     private Scanner input;
 
-    // EFFECTS: runs the reading tracker application
+    private Book book;
+    private Bookshelf bookshelf;
+
+    // EFFECTS: runs the reading tracker application;
+    //      if destination file cannot be opened for writing when initialing,
+    //      catch FileNotFoundException and terminate the application with printed prompt.
     public ReadingTrackerApp() {
-        runReadingTracker();
+        try {
+            runReadingTracker();
+        } catch (FileNotFoundException e) {
+            System.out.println("Unable to run application: FILE NOT FOUND!");
+        }
     }
 
 
     // MODIFIES: this
-    // EFFECTS: process user input
-    private void runReadingTracker() {
-        boolean keepGoing = true;
-        String command = null;
+    // EFFECTS: process user input.
+    private void runReadingTracker() throws FileNotFoundException {
 
         init();
+
+        boolean keepGoing = true;
+        String command;
 
         while (keepGoing) {
             displayMenu();
@@ -39,10 +61,38 @@ public class ReadingTrackerApp {
             } else {
                 processCommand(command);
             }
-
         }
-
         System.out.println("\nThank you for using Reading Tracker App!");
+    }
+
+
+    // MODIFIES: this
+    // EFFECTS: initializes a bookshelf, Scanner, JsonWriter and JsonReader
+    private void init() throws FileNotFoundException {
+        bookshelf = new Bookshelf();
+
+        input = new Scanner(System.in);
+        input.useDelimiter("\n");
+
+        jsonWriter = new JsonWriter(JSON_STORE);
+        jsonReader = new JsonReader(JSON_STORE);
+    }
+
+    // EFFECTS: display the main menu for user to choose
+    private void displayMenu() {
+        System.out.println("\n================================================");
+        System.out.println("Hi, I am a book reading tracker! "
+                + "\nI help you to manage your books on your bookshelf!");
+        System.out.println("\tSelect below for commands:");
+        System.out.println("\t\ta --> add books to the bookshelf");
+        System.out.println("\t\tv --> view all books on the bookshelf");
+        System.out.println("\t\tg --> view books by genre");
+        System.out.println("\t\tr --> view and update pages read");
+        System.out.println("\t\tp --> progress report");
+        System.out.println("\t\ts --> save current bookshelf to file");
+        System.out.println("\t\tl --> load previous bookshelf from file");
+        System.out.println("\t\tq --> quit");
+        System.out.println("================================================");
     }
 
     // MODIFIES: this
@@ -58,33 +108,13 @@ public class ReadingTrackerApp {
             doUpdateReadingProgress();
         } else if (command.equals("p")) {
             doProgressReport();
+        } else if (command.equals("s")) {
+            doSaveBookshelf();
+        } else if (command.equals("l")) {
+            doLoadBookshelf();
         } else {
             System.out.println("Selection is not valid...");
         }
-    }
-
-    // MODIFIES: this
-    // EFFECTS: initializes a bookshelf and Scanner
-    private void init() {
-        bookshelf = new Bookshelf();
-
-        input = new Scanner(System.in);
-        input.useDelimiter("\n");
-    }
-
-    // EFFECTS: display the main menu for user to choose
-    private void displayMenu() {
-        System.out.println("\n================================================");
-        System.out.println("Hi, I am a book reading tracker! "
-                + "\nI help you to manage your books on your bookshelf!");
-        System.out.println("\tSelect below for commands:");
-        System.out.println("\t\ta --> add books to the bookshelf");
-        System.out.println("\t\tv --> view all books on the bookshelf");
-        System.out.println("\t\tg --> view books by genre");
-        System.out.println("\t\tr --> view and update pages read");
-        System.out.println("\t\tp --> progress report");
-        System.out.println("\t\tq --> quit");
-        System.out.println("================================================");
     }
 
     // REQUIRES: don't add the same book twice unless user wants to.
@@ -212,6 +242,33 @@ public class ReadingTrackerApp {
             int i = (int) Math.floor(next.getProgress() / 10);
             System.out.println("<" + next.getTitle() + ">: " + next.getProgress() + "% "
                     + str1.substring(0, i) + str2.substring(i));
+        }
+    }
+
+    // EFFECTS: saves the bookshelf to file;
+    //      if unable to write to the destination file,
+    //      catch FileNotFoundException and print status.
+    private void doSaveBookshelf() {
+        try {
+            jsonWriter.open();
+            jsonWriter.write(bookshelf);
+            jsonWriter.close();
+            System.out.println("Saved your bookshelf to " + JSON_STORE);
+        } catch (FileNotFoundException e) {
+            System.out.println("Unable to write to file: " + JSON_STORE);
+        }
+    }
+
+    // MODIFIES: this
+    // EFFECTS: loads bookshelf from file;
+    //      if unable to read from file,
+    //      catch IOException and print status.
+    private void doLoadBookshelf() {
+        try {
+            bookshelf = jsonReader.read();
+            System.out.println("Loaded previous bookshelf from " + JSON_STORE);
+        } catch (IOException e) {
+            System.out.println("Unable to read from file: " + JSON_STORE);
         }
     }
 

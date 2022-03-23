@@ -2,11 +2,15 @@ package ui;
 
 import model.Book;
 import model.Bookshelf;
+import persistence.JsonReader;
+import persistence.JsonWriter;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 
 public class ReadingTrackerAppGUI extends JFrame implements ActionListener {
 
@@ -27,6 +31,10 @@ public class ReadingTrackerAppGUI extends JFrame implements ActionListener {
     private JMenuItem saveItem;
     private JMenuItem loadItem;
 
+    private static final String JSON_STORE = "./data/bookshelf.json";
+    private JsonWriter jsonWriter;
+    private JsonReader jsonReader;
+
     private Bookshelf bookshelf;
     private Book book;
 
@@ -46,11 +54,18 @@ public class ReadingTrackerAppGUI extends JFrame implements ActionListener {
         setVisible(true);
 
         //initial Bookshelf, JsonReader, and JsonWriter
-        init();
+        try {
+            init();
+        } catch (FileNotFoundException e) {
+            System.out.println("Unable to run application: FILE NOT FOUND!");
+        }
     }
 
-    private void init() {
+    private void init() throws FileNotFoundException {
         bookshelf = new Bookshelf();
+
+        jsonWriter = new JsonWriter(JSON_STORE);
+        jsonReader = new JsonReader(JSON_STORE);
     }
 
     private void mainPageSetUp() {
@@ -147,9 +162,40 @@ public class ReadingTrackerAppGUI extends JFrame implements ActionListener {
         } else if (e.getSource().equals(updateProgressItem)) {
             System.out.println("to be implemented...");
         } else if (e.getSource().equals(saveItem)) {
-            System.out.println("to be implemented...");
+            doSaveBookshelf();
         } else if (e.getSource().equals(loadItem)) {
-            System.out.println("to be implemented...");
+            doLoadBookshelf();
+        }
+    }
+
+    // EFFECTS: saves the bookshelf to file and pop up a confirmation window;
+    //      if unable to write to the destination file,
+    //      catch FileNotFoundException and pop up an error window.
+    private void doSaveBookshelf() {
+        try {
+            jsonWriter.open();
+            jsonWriter.write(bookshelf);
+            jsonWriter.close();
+            JOptionPane.showMessageDialog(null,"Saved your bookshelf to " + JSON_STORE,
+                    "Confirmation", JOptionPane.INFORMATION_MESSAGE);
+        } catch (FileNotFoundException e) {
+            JOptionPane.showMessageDialog(null, "Unable to write to file: " + JSON_STORE,
+                    "ERROR!", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+    // MODIFIES: this
+    // EFFECTS: loads bookshelf from file and pop up a confirmation window;
+    //      if unable to read from file,
+    //      catch IOException and pop up an error window.
+    private void doLoadBookshelf() {
+        try {
+            bookshelf = jsonReader.read();
+            JOptionPane.showMessageDialog(null,"Loaded previous bookshelf from " + JSON_STORE,
+                    "Confirmation", JOptionPane.INFORMATION_MESSAGE);
+        } catch (IOException e) {
+            JOptionPane.showMessageDialog(null, "Unable to read from file: " + JSON_STORE,
+                    "ERROR!", JOptionPane.ERROR_MESSAGE);
         }
     }
 }

@@ -161,7 +161,7 @@ public class ReadingTrackerAppGUI extends JFrame implements ActionListener {
                 new WindowViewBooks(bookshelf, genre);
             }
         } else if (e.getSource().equals(viewReportItem)) {
-            JOptionPane.showMessageDialog(null, "to be implemented...", "Error", JOptionPane.ERROR_MESSAGE);
+            new WindowViewReport(bookshelf);
         } else if (e.getSource().equals(updateProgressItem)) {
             new WindowUpdateProgress(bookshelf);
         } else if (e.getSource().equals(saveItem)) {

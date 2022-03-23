@@ -41,7 +41,7 @@ public class WindowViewBooks extends JFrame {
     }
 
     public WindowViewBooks(Bookshelf bookshelf, String genre) {
-        super("View All Books");
+        super("View Books By Genre");
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setLayout(new BorderLayout());
 

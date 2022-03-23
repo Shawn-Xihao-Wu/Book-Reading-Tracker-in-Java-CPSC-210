@@ -40,6 +40,8 @@ public class WindowAddBooks extends JFrame implements ActionListener {
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setLayout(new BorderLayout());
 
+        this.bookshelf = bookshelf;
+
         //create labels
         labelsSetUp();
 
@@ -55,17 +57,15 @@ public class WindowAddBooks extends JFrame implements ActionListener {
         //display frame
         pack();
         setVisible(true);
-
-        this.bookshelf = bookshelf;
     }
 
     private void panelsSetUp() {
         mainPanel = new JPanel(new BorderLayout());
-        labelPanel = new JPanel(new GridLayout(0,1));
-        fieldPanel = new JPanel(new GridLayout(0,1));
+        labelPanel = new JPanel(new GridLayout(0,1,5,5));
+        fieldPanel = new JPanel(new GridLayout(0,1,5,5));
         buttonPanel = new JPanel();
 
-        //add to panels
+        //add everything to panels
         labelPanel.add(titleLabel);
         labelPanel.add(totalPageNumLabel);
         labelPanel.add(genreLabel);

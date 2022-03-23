@@ -29,7 +29,7 @@ public class WindowAddBooks extends JFrame implements ActionListener {
     private JPanel fieldPanel;
     private JPanel buttonPanel;
 
-    private static ImageIcon bookCoverIcon = new ImageIcon("./data/bookCoverIcon.jpg");
+    private static ImageIcon addBookIcon = new ImageIcon("./data/addBookIcon.jpg");
 
     private Bookshelf bookshelf;
     private Book book;
@@ -129,7 +129,7 @@ public class WindowAddBooks extends JFrame implements ActionListener {
             bookshelf.addBook(book);
 
             JOptionPane.showMessageDialog(null,"You added <" + bookTitle + "> to bookshelf!",
-                    "Confirmation",JOptionPane.INFORMATION_MESSAGE, bookCoverIcon);
+                    "Confirmation",JOptionPane.INFORMATION_MESSAGE, addBookIcon);
         }
     }
 

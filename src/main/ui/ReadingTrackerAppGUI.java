@@ -154,9 +154,12 @@ public class ReadingTrackerAppGUI extends JFrame implements ActionListener {
         if (e.getSource().equals(addBooksItem)) {
             new WindowAddBooks(bookshelf);
         } else if (e.getSource().equals(viewAllBooksItem)) {
-            new WindowViewAllBooks(bookshelf);
+            new WindowViewBooks(bookshelf);
         } else if (e.getSource().equals(viewBooksByGenreItem)) {
-            JOptionPane.showMessageDialog(null, "to be implemented...", "Error", JOptionPane.ERROR_MESSAGE);
+            String genre = JOptionPane.showInputDialog("Input a genre name: ");
+            if (genre != null) {
+                new WindowViewBooks(bookshelf, genre);
+            }
         } else if (e.getSource().equals(viewReportItem)) {
             JOptionPane.showMessageDialog(null, "to be implemented...", "Error", JOptionPane.ERROR_MESSAGE);
         } else if (e.getSource().equals(updateProgressItem)) {

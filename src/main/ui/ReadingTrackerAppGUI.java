@@ -3,15 +3,6 @@ package ui;
 import model.Book;
 import model.Bookshelf;
 
-import persistence.JsonWriter;
-import persistence.JsonReader;
-
-import java.io.FileNotFoundException;
-import java.io.IOException;
-
-import java.util.List;
-import java.util.Scanner;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -24,15 +15,15 @@ public class ReadingTrackerAppGUI extends JFrame implements ActionListener {
 
     private JMenu addBooksMenu;
     private JMenu viewBooksMenu;
-    private JMenu progressBooksMenu;
+    private JMenu updateBooksMenu;
     private JMenu saveBooksMenu;
     private JMenu loadBooksMenu;
 
     private JMenuItem addBooksItem;
     private JMenuItem viewAllBooksItem;
     private JMenuItem viewBooksByGenreItem;
-    private JMenuItem progressUpdateItem;
-    private JMenuItem progressReportItem;
+    private JMenuItem viewReportItem;
+    private JMenuItem updateProgressItem;
     private JMenuItem saveItem;
     private JMenuItem loadItem;
 
@@ -53,6 +44,13 @@ public class ReadingTrackerAppGUI extends JFrame implements ActionListener {
         // display the window
         pack();
         setVisible(true);
+
+        //initial Bookshelf, JsonReader, and JsonWriter
+        init();
+    }
+
+    private void init() {
+        bookshelf = new Bookshelf();
     }
 
     private void mainPageSetUp() {
@@ -90,7 +88,7 @@ public class ReadingTrackerAppGUI extends JFrame implements ActionListener {
 
         menuBar.add(addBooksMenu);
         menuBar.add(viewBooksMenu);
-        menuBar.add(progressBooksMenu);
+        menuBar.add(updateBooksMenu);
         menuBar.add(saveBooksMenu);
         menuBar.add(loadBooksMenu);
 
@@ -102,7 +100,7 @@ public class ReadingTrackerAppGUI extends JFrame implements ActionListener {
     private void menuSetUp() {
         addBooksMenu = new JMenu("Add");
         viewBooksMenu = new JMenu("View");
-        progressBooksMenu = new JMenu("Progress");
+        updateBooksMenu = new JMenu("Update");
         saveBooksMenu = new JMenu("Save");
         loadBooksMenu = new JMenu("Load");
     }
@@ -112,16 +110,16 @@ public class ReadingTrackerAppGUI extends JFrame implements ActionListener {
         addBooksItem = new JMenuItem("Add a book");
         viewAllBooksItem = new JMenuItem("View all books");
         viewBooksByGenreItem = new JMenuItem("View books by genre");
-        progressUpdateItem = new JMenuItem("Progress update");
-        progressReportItem = new JMenuItem("Progress report");
+        viewReportItem = new JMenuItem("View report");
+        updateProgressItem = new JMenuItem("Update progress");
         saveItem = new JMenuItem("Save current books");
         loadItem = new JMenuItem("Load previous books");
 
         addBooksMenu.add(addBooksItem);
         viewBooksMenu.add(viewAllBooksItem);
         viewBooksMenu.add(viewBooksByGenreItem);
-        progressBooksMenu.add(progressUpdateItem);
-        progressBooksMenu.add(progressReportItem);
+        viewBooksMenu.add(viewReportItem);
+        updateBooksMenu.add(updateProgressItem);
         saveBooksMenu.add(saveItem);
         loadBooksMenu.add(loadItem);
     }
@@ -130,8 +128,8 @@ public class ReadingTrackerAppGUI extends JFrame implements ActionListener {
         addBooksItem.addActionListener(this);
         viewAllBooksItem.addActionListener(this);
         viewBooksByGenreItem.addActionListener(this);
-        progressUpdateItem.addActionListener(this);
-        progressReportItem.addActionListener(this);
+        viewReportItem.addActionListener(this);
+        updateProgressItem.addActionListener(this);
         saveItem.addActionListener(this);
         loadItem.addActionListener(this);
     }
@@ -139,25 +137,19 @@ public class ReadingTrackerAppGUI extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource().equals(addBooksItem)) {
-            System.out.println("addBook");
-        }
-        if (e.getSource().equals(viewAllBooksItem)) {
-            System.out.println("all books");
-        }
-        if (e.getSource().equals(viewBooksByGenreItem)) {
-            System.out.println("genre");
-        }
-        if (e.getSource().equals(progressUpdateItem)) {
-            System.out.println("updating..");
-        }
-        if (e.getSource().equals(progressReportItem)) {
-            System.out.println("reporting..");
-        }
-        if (e.getSource().equals(saveItem)) {
-            System.out.println("saving...");
-        }
-        if (e.getSource().equals(loadItem)) {
-            System.out.println("loading..");
+            new WindowAddBooks(bookshelf);
+        } else if (e.getSource().equals(viewAllBooksItem)) {
+            new WindowViewAllBooks(bookshelf);
+        } else if (e.getSource().equals(viewBooksByGenreItem)) {
+            System.out.println("to be implemented...");
+        } else if (e.getSource().equals(viewReportItem)) {
+            System.out.println("to be implemented...");
+        } else if (e.getSource().equals(updateProgressItem)) {
+            System.out.println("to be implemented...");
+        } else if (e.getSource().equals(saveItem)) {
+            System.out.println("to be implemented...");
+        } else if (e.getSource().equals(loadItem)) {
+            System.out.println("to be implemented...");
         }
     }
 }

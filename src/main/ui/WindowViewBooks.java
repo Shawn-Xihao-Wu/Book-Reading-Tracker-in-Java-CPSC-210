@@ -8,6 +8,9 @@ import java.awt.*;
 
 import java.util.List;
 
+// Represents a window for view books. The window is in grid layout; it has 2 columns,
+//      and can have many rows. The window is also scrollable. Within each grid placed a book cover
+//      with all the information a book object can have, title, genres, progress, etc.
 public class WindowViewBooks extends JFrame {
     private JPanel mainPanel;
     private JPanel bookCoverPanel;
@@ -23,6 +26,8 @@ public class WindowViewBooks extends JFrame {
     private Bookshelf bookshelf;
     private Book book;
 
+    // REQUIRES: bookshelf is not null
+    // EFFECTS: construct a window for viewing all books
     public WindowViewBooks(Bookshelf bookshelf) {
         super("View All Books");
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -40,6 +45,8 @@ public class WindowViewBooks extends JFrame {
         setVisible(true);
     }
 
+    // REQUIRES: bookshelf and string are not null
+    // EFFECTS: construct a window for viewing books that are of certain genre
     public WindowViewBooks(Bookshelf bookshelf, String genre) {
         super("View Books By Genre");
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -57,6 +64,10 @@ public class WindowViewBooks extends JFrame {
         setVisible(true);
     }
 
+    // MODIFIES: this
+    // EFFECTS: build book covers for all books, and the add book covers to main frame.
+    //      For each book cover, display book title, book genres, total pages $, pages read,
+    //      and progress in percentage.
     private void buildAndAddBookCovers() {
 
         for (int i = 0; i < bookshelf.getNumberOfBooks(); i++) {
@@ -68,6 +79,11 @@ public class WindowViewBooks extends JFrame {
         }
     }
 
+    // REQUIRES: genre is not null
+    // MODIFIES: this
+    // EFFECTS: build book covers only for books of certain genre, and add the book covers to main frame.
+    //      For each book cover, display book title, book genres, total pages $, pages read,
+    //      and progress in percentage.
     private void buildAndAddBookCovers(String genre) {
         for (int i = 0; i < bookshelf.getNumberOfBooks(); i++) {
             book = bookshelf.getAllBooks().get(i);
@@ -79,6 +95,8 @@ public class WindowViewBooks extends JFrame {
         }
     }
 
+    // MODIFIES: this
+    // EFFECTS: build text labels for book covers, and add the labels to book covers
     private void buildAndAddBookCoverLabels() {
         bookCoverIconLabel = new JLabel(bookCoverIcon);
 
@@ -102,6 +120,8 @@ public class WindowViewBooks extends JFrame {
         addEverythingToPanels();
     }
 
+    // MODIFIES: this
+    // EFFECTS: add everything to corresponding panels
     private void addEverythingToPanels() {
         bookCoverPanel.add(bookCoverIconLabel);
         bookCoverPanel.add(titleLabel);
@@ -112,6 +132,9 @@ public class WindowViewBooks extends JFrame {
         mainPanel.add(bookCoverPanel);
     }
 
+    // REQUIRES: book is not null
+    // EFFECTS: return a string of genre names in html format,
+    //      so that each genre name is in a new line.
     private String genreLabelStringGenerator(Book book) {
         List<String> tags = book.getGenreTags();
         StringBuilder str = new StringBuilder("<html>");

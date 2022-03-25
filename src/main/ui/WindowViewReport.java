@@ -5,6 +5,9 @@ import model.Bookshelf;
 import javax.swing.*;
 import java.awt.*;
 
+// Represents a window for view a report about all the books on the bookshelf.
+//      It lists the total number books on the bookshelf, the number of distinct genres and what are they,
+//      and the total progress in percentage with a progress bar.
 public class WindowViewReport extends JFrame {
 
     private JPanel mainPanel;
@@ -22,6 +25,8 @@ public class WindowViewReport extends JFrame {
 
     private Bookshelf bookshelf;
 
+    // REQUIRES: bookshelf is not null
+    // EFFECTS: construct a window for presenting the report about all the books on bookshelf
     public WindowViewReport(Bookshelf bookshelf) {
         // create main frame
         super("View Report");
@@ -51,6 +56,8 @@ public class WindowViewReport extends JFrame {
         setVisible(true);
     }
 
+    // MODIFIES: this
+    // EFFECTS: set up all the necessary text labels for presenting the report
     private void labelsSetUp() {
         iconLabel = new JLabel(reportIcon);
         iconLabel.setHorizontalAlignment(SwingConstants.CENTER);
@@ -68,6 +75,8 @@ public class WindowViewReport extends JFrame {
         progressLabel = new JLabel("Total progress so far...");
     }
 
+    // MODIFIES: this
+    // EFFECTS: set up the progress bar for viewing the total progress
     private void progressBarSetUp() {
         progressBar = new JProgressBar(0,100);
         progressBar.setValue((int) bookshelf.getTotalProgress());
@@ -76,6 +85,8 @@ public class WindowViewReport extends JFrame {
         progressBar.setSize(300,20);
     }
 
+    // MODIFIES: this
+    // EFFECTS: create a main panel to present the report. Add the labels to the main panel.
     private void addToPanels() {
         mainPanel = new JPanel(new GridLayout(0,1));
         mainPanel.setSize(300, 450);
@@ -86,6 +97,8 @@ public class WindowViewReport extends JFrame {
         mainPanel.add(progressLabel);
     }
 
+    // EFFECTS: generate a string of distinct genre names in HTML format, so that each genre name
+    //      is on a new line.
     private String genresLabelString() {
         StringBuilder str = new StringBuilder("<html>There are...<br/>");
         for (String tag : bookshelf.getAllGenres()) {

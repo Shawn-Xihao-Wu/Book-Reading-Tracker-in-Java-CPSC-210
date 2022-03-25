@@ -12,6 +12,7 @@ import java.awt.event.ActionListener;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
+// Represent the main splash screen with main icon and a menu bar for all the functions
 public class ReadingTrackerAppGUI extends JFrame implements ActionListener {
 
     private JLabel label;
@@ -31,6 +32,8 @@ public class ReadingTrackerAppGUI extends JFrame implements ActionListener {
     private JMenuItem saveItem;
     private JMenuItem loadItem;
 
+    private static ImageIcon checkIcon = new ImageIcon("./data/checkIcon.png");
+
     private static final String JSON_STORE = "./data/bookshelf.json";
     private JsonWriter jsonWriter;
     private JsonReader jsonReader;
@@ -38,6 +41,9 @@ public class ReadingTrackerAppGUI extends JFrame implements ActionListener {
     private Bookshelf bookshelf;
     private Book book;
 
+    // EFFECTS: constructs a GUI for reading tracker application.
+    //      if destination file cannot be opened for writing when initialing,
+    //      catch FileNotFoundException and terminate the application with printed prompt.
     public ReadingTrackerAppGUI() {
         //Set up the window using JFrame.
         super("Reading Tracker Application");
@@ -61,6 +67,8 @@ public class ReadingTrackerAppGUI extends JFrame implements ActionListener {
         }
     }
 
+    // MODIFIES: this
+    // EFFECTS: instantiate bookshelf, jsonWriter, and jsonReader objects
     private void init() throws FileNotFoundException {
         bookshelf = new Bookshelf();
 
@@ -68,6 +76,9 @@ public class ReadingTrackerAppGUI extends JFrame implements ActionListener {
         jsonReader = new JsonReader(JSON_STORE);
     }
 
+    // MODIFIES: this
+    // EFFECTS: set up the main page for the application.
+    //      add a name and an icon to the main page
     private void mainPageSetUp() {
         //Create an image icon
         ImageIcon icon = new ImageIcon("./data/bookIcon.jpg");
@@ -92,6 +103,8 @@ public class ReadingTrackerAppGUI extends JFrame implements ActionListener {
         getContentPane().add(label, BorderLayout.CENTER); // add label to frame
     }
 
+    // MODIFIES: this
+    // EFFECTS: Set up the menu bar to select different functions
     private void menuBarSetUp() {
         //create a menu bar.
         menuBar = new JMenuBar();
@@ -112,6 +125,8 @@ public class ReadingTrackerAppGUI extends JFrame implements ActionListener {
         eventsSetUp();
     }
 
+    // MODIFIES: this
+    // EFFECTS: set up the first layer of the menu
     private void menuSetUp() {
         addBooksMenu = new JMenu("Add");
         viewBooksMenu = new JMenu("View");
@@ -120,6 +135,8 @@ public class ReadingTrackerAppGUI extends JFrame implements ActionListener {
         loadBooksMenu = new JMenu("Load");
     }
 
+    // MODIFIES; this
+    // EFFECTS: set up the second layer of the menu with menu items
     private void menuItemsSetUp() {
 
         addBooksItem = new JMenuItem("Add a book");
@@ -139,6 +156,9 @@ public class ReadingTrackerAppGUI extends JFrame implements ActionListener {
         loadBooksMenu.add(loadItem);
     }
 
+    // MODIFIES: this
+    // EFFECTS: add action listener to each of the menu item
+    //      so that when clicked, they can perform their corresponding functions
     private void eventsSetUp() {
         addBooksItem.addActionListener(this);
         viewAllBooksItem.addActionListener(this);
@@ -149,6 +169,8 @@ public class ReadingTrackerAppGUI extends JFrame implements ActionListener {
         loadItem.addActionListener(this);
     }
 
+    // EFFECTS: process action events from user
+    //      it will open up a new window when a menu item is clicked
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource().equals(addBooksItem)) {
@@ -171,6 +193,7 @@ public class ReadingTrackerAppGUI extends JFrame implements ActionListener {
         }
     }
 
+    // MODIFIES: this
     // EFFECTS: saves the bookshelf to file and pop up a confirmation window;
     //      if unable to write to the destination file,
     //      catch FileNotFoundException and pop up an error window.
@@ -180,7 +203,7 @@ public class ReadingTrackerAppGUI extends JFrame implements ActionListener {
             jsonWriter.write(bookshelf);
             jsonWriter.close();
             JOptionPane.showMessageDialog(null,"Saved your bookshelf to " + JSON_STORE,
-                    "Confirmation", JOptionPane.INFORMATION_MESSAGE);
+                    "Confirmation", JOptionPane.INFORMATION_MESSAGE, checkIcon);
         } catch (FileNotFoundException e) {
             JOptionPane.showMessageDialog(null, "Unable to write to file: " + JSON_STORE,
                     "ERROR!", JOptionPane.ERROR_MESSAGE);
@@ -195,7 +218,7 @@ public class ReadingTrackerAppGUI extends JFrame implements ActionListener {
         try {
             bookshelf = jsonReader.read();
             JOptionPane.showMessageDialog(null,"Loaded previous bookshelf from " + JSON_STORE,
-                    "Confirmation", JOptionPane.INFORMATION_MESSAGE);
+                    "Confirmation", JOptionPane.INFORMATION_MESSAGE, checkIcon);
         } catch (IOException e) {
             JOptionPane.showMessageDialog(null, "Unable to read from file: " + JSON_STORE,
                     "ERROR!", JOptionPane.ERROR_MESSAGE);

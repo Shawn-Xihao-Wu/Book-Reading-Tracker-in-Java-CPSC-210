@@ -8,6 +8,8 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+// Represents a window for adding a book to bookshelf.
+//      it needs a book title, total page #, and if desired, book genres
 public class WindowAddBooks extends JFrame implements ActionListener {
     private JLabel titleLabel;
     private JLabel totalPageNumLabel;
@@ -34,6 +36,7 @@ public class WindowAddBooks extends JFrame implements ActionListener {
     private Bookshelf bookshelf;
     private Book book;
 
+    // EFFECTS: constructs a window for add a book
     public WindowAddBooks(Bookshelf bookshelf) {
         //Set up the main frame
         super("Add a book");
@@ -59,6 +62,37 @@ public class WindowAddBooks extends JFrame implements ActionListener {
         setVisible(true);
     }
 
+    // MODIFIES: this
+    // EFFECTS: set up the text labels for input prompt
+    private void labelsSetUp() {
+        titleLabel = new JLabel(titleString);
+        totalPageNumLabel = new JLabel(totalPageNumString);
+        genreLabel = new JLabel(genreString);
+    }
+
+    // MODIFIES: this
+    // EFFECTS: set up the text fields for user input
+    private void textFieldsSetUp() {
+        titleTextField = new JTextField(50);
+        totalPageNumTextField = new JTextField(50);
+        genreTextField = new JTextField(50);
+    }
+
+    // MODIFIES: this
+    // EFFECTS: set up the buttons for adding books and for clearing fields
+    private void buttonsSetUp() {
+        addBookButton = new JButton("Add a book");
+        clearFieldsButton = new JButton("Clear fields");
+
+        //action listener
+        addBookButton.addActionListener(this);
+        clearFieldsButton.addActionListener(this);
+    }
+
+    // MODIFIES: this
+    // EFFECTS: create and set up panels,
+    //      add labels to panels,
+    //      and add all panels to main frame
     private void panelsSetUp() {
         mainPanel = new JPanel(new BorderLayout());
         labelPanel = new JPanel(new GridLayout(0,1,5,5));
@@ -87,27 +121,11 @@ public class WindowAddBooks extends JFrame implements ActionListener {
         add(mainPanel, BorderLayout.CENTER);
     }
 
-    private void buttonsSetUp() {
-        addBookButton = new JButton("Add a book");
-        clearFieldsButton = new JButton("Clear fields");
-
-        //action listener
-        addBookButton.addActionListener(this);
-        clearFieldsButton.addActionListener(this);
-    }
-
-    private void textFieldsSetUp() {
-        titleTextField = new JTextField(50);
-        totalPageNumTextField = new JTextField(50);
-        genreTextField = new JTextField(50);
-    }
-
-    private void labelsSetUp() {
-        titleLabel = new JLabel(titleString);
-        totalPageNumLabel = new JLabel(totalPageNumString);
-        genreLabel = new JLabel(genreString);
-    }
-
+    // MODIFIES: this
+    // EFFECTS: handle user action events
+    //      if clear fields button is clicked, the text fields are cleared,
+    //      if add book button is clicked, construct a book given the user input,
+    //      and add the book to bookshelf
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource().equals(clearFieldsButton)) {
@@ -133,6 +151,9 @@ public class WindowAddBooks extends JFrame implements ActionListener {
         }
     }
 
+    // MODIFIES: this
+    // EFFECTS: parse and split and user inputting string for genres,
+    //      and add each genre to the book.
     private void addGenreToBook() {
         String[] genreTags = genreTextField.getText().split(";");
         for (String tag : genreTags) {

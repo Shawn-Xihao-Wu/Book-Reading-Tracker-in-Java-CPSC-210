@@ -10,6 +10,8 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 
+// Represents a window that allow user to update pages read for one specific book.
+//      User can select a book from a drop-down menu.
 public class WindowUpdateProgress extends JFrame implements ActionListener {
 
     private JPanel mainPanel;
@@ -18,6 +20,8 @@ public class WindowUpdateProgress extends JFrame implements ActionListener {
 
     private JLabel selectBookLabel;
     private JLabel updatePagesLabel;
+
+    private static ImageIcon checkIcon = new ImageIcon("./data/checkIcon.png");
 
     private static String selectBookString = "Select a book: ";
     private static String updatePagesString = "Enter new pages: ";
@@ -31,6 +35,8 @@ public class WindowUpdateProgress extends JFrame implements ActionListener {
     private Bookshelf bookshelf;
     private Book book;
 
+    // REQUIRES: bookshelf is not null
+    // EFFECTS: construct a window that allow user to select a book and update its pages read
     public WindowUpdateProgress(Bookshelf bookshelf) {
         //set up main frame
         super("Update progress");
@@ -59,11 +65,30 @@ public class WindowUpdateProgress extends JFrame implements ActionListener {
         //set up panels
         panelsSetUp();
 
-
+        //display the window
         pack();
         setVisible(true);
     }
 
+    // MODIFIES: this
+    // EFFECTS: create a drop-down menu for user to select the book that the user
+    //      wants to update its pages read
+    private void dropDownMenuSetUp() {
+        List<String> bookList = new ArrayList<>();
+        String menuStr = "";
+        for (Book book : bookshelf.getAllBooks()) {
+            menuStr = book.getTitle() + "  (" + book.getPagesRead() + "/" + book.getTotalPages() + ")";
+            bookList.add(menuStr);
+        }
+
+        selectBookMenu = new JComboBox<>(bookList.toArray());
+        selectBookMenu.addActionListener(this);
+    }
+
+    // MODIFIES: this
+    // EFFECTS: create a panel for the drop-down menu to select a book,
+    //      create a panel for updating pages, and create a main panel that contains the two panels before.
+    //      Add the labels, the drop-down menu, the buttons, and the text fields to corresponding panels
     private void panelsSetUp() {
         mainPanel = new JPanel(new GridLayout(0,2,10,10));
         selectBookPanel = new JPanel(new GridLayout(0,1,5,5));
@@ -85,18 +110,11 @@ public class WindowUpdateProgress extends JFrame implements ActionListener {
         add(mainPanel, BorderLayout.CENTER);
     }
 
-    private void dropDownMenuSetUp() {
-        List<String> bookList = new ArrayList<>();
-        String menuStr = "";
-        for (Book book : bookshelf.getAllBooks()) {
-            menuStr = book.getTitle() + "  (" + book.getPagesRead() + "/" + book.getTotalPages() + ")";
-            bookList.add(menuStr);
-        }
-
-        selectBookMenu = new JComboBox<>(bookList.toArray());
-        selectBookMenu.addActionListener(this);
-    }
-
+    // MODIFIES: this
+    // EFFECTS: handle user event actions. If the clear field button is clicked, the text field accepting new pages #
+    //      is cleared. If the update pages button is clicked, the pages read of the selected book are updated according
+    //      to the user input.
+    //      After the update is finished, the window closes and a confirmation window pops up.
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource().equals(clearFieldsButton)) {
@@ -111,7 +129,7 @@ public class WindowUpdateProgress extends JFrame implements ActionListener {
 
             JOptionPane.showMessageDialog(null,"Now on page " + newPageNum + " of "
                     + book.getTotalPages() + " for <" + book.getTitle() + ">!",
-                    "Page Update", JOptionPane.INFORMATION_MESSAGE);
+                    "Page Update", JOptionPane.INFORMATION_MESSAGE, checkIcon);
 
         }
     }

@@ -56,3 +56,64 @@ Thu Mar 31 19:55:05 PDT 2022
 Progress of <Crime and Punishment> on bookshelf updated: 
 Now on page 151 of 161! 93.8% read!
 ```
+### Phase 4: Task 3
+
+One design problem in the final version of my project could be the lack of cohesion; one class often takes on too many 
+responsibilities. Looking closely, one can notice that my user stories revolve around two groups of functionalities:
+
+1) something to do with book genres, and
+2) something to do with reading progress
+
+However, if one looks into my `model` package, one can only find two relevant classes: `Book` and `Bookshelf`.
+This means that I have crammed those two groups of functionalities into those two classes, resulting in a lack of cohesion.
+
+My `Book` class keeps track of its genres, calculate and maintain its reading progress. 
+It could be argued that those two responsibilities have little to do with book itself. 
+More seriously, my `Bookshelf` class not only just stores a list of books, which is what a bookshelf is for, 
+but also maintains a list of distinct genre names, gives out a list of book of certain genre, and calculates the total 
+reading progress of all the books on bookshelf. 
+That's too many responsibilities for one class.
+
+To maintain the latter two functionalities, I have to loop through a list of `Book` objects in `Bookshelf`, 
+everytime I want to see a list of distinct genre names, a list of books of certain genre, or the total reading progress. 
+This is rather inefficient, and not helpful if, in the future, I want to improve my apps functionalities regarding book 
+genres or reading progress. 
+It is also not helpful if I want to debug my code just on those two sets of functionalities.
+
+To delegate the responsibility regarding book genres, I think we can create two new classes 
+`Genre` and `GenreManager`:
+
+```java
+public class Genre {
+    private String name;
+    private Set<Book>;
+    // ...
+}
+
+public class GenreManager {
+    private Set<Genre>;
+    // ...
+}
+```
+There now should a bidirectional relationship between `Book` and `Genre`:
+
+```java
+public class Book {
+    private Set<Genre>;
+    // ...
+}
+```
+Whenever a user adds a new genre tag to a `Book` object, the program would create a `Genre` object and add it to
+`Book` and `GenreManager`. At the same time, the `Book` object will also be added to `Genre`. So that we can more easily
+keep track of how many genres there are and what are they, and how many books there are of certain genre and what are they.
+
+Similarly, to delegate the responsibility of keeping track of the reading progress of each book, I think we can create 
+two new classes as well: `Progress` and `ProgressDashboard`. Each `Book` stores a `Progress` object so that we can move 
+the math of calculating the progress of each book into `Progress`. And `ProgressDashboard` should store the total reading
+progress, and the individual progress of all the books.
+
+To reduce potentially unnecessary couplings in my current design, I think we can get rid of the associations between 
+`WindowAddBooks`, `WindowViewBooks`, `WindowUpdateProgress` and `Book`.
+In `WindowAddBooks`, `WindowViewBooks`, `WindowUpdateProgress`, I only include `Book` in their fields because I want a 
+global `Book` variable. I can easily make it local. It makes little sense that those windows need `Book` because they 
+can easily get it through `Bookshelf`.

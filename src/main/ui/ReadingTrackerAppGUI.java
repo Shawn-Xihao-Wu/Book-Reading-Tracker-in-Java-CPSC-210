@@ -2,6 +2,8 @@ package ui;
 
 import model.Book;
 import model.Bookshelf;
+import model.Event;
+import model.EventLog;
 import persistence.JsonReader;
 import persistence.JsonWriter;
 
@@ -39,15 +41,14 @@ public class ReadingTrackerAppGUI extends JFrame implements ActionListener {
     private JsonReader jsonReader;
 
     private Bookshelf bookshelf;
-    private Book book;
 
     // EFFECTS: constructs a GUI for reading tracker application.
     //      if destination file cannot be opened for writing when initialing,
-    //      catch FileNotFoundException and terminate the application with printed prompt.
+    //      catch FileNotFoundException and terminate the application with error message window.
     public ReadingTrackerAppGUI() {
         //Set up the window using JFrame.
         super("Reading Tracker Application");
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 
         //Set up the main page using JLabel
         mainPageSetUp();
@@ -63,8 +64,20 @@ public class ReadingTrackerAppGUI extends JFrame implements ActionListener {
         try {
             init();
         } catch (FileNotFoundException e) {
-            System.out.println("Unable to run application: FILE NOT FOUND!");
+            JOptionPane.showMessageDialog(null, "Unable to run application: FILE NOT FOUND!",
+                    "ERROR!", JOptionPane.ERROR_MESSAGE);
         }
+
+        //print EventLog on close
+        this.addWindowListener(new java.awt.event.WindowAdapter() {
+            @Override
+            public void windowClosing(java.awt.event.WindowEvent windowEvent) {
+                for (Event next : EventLog.getInstance()) {
+                    System.out.println(next.toString());
+                }
+                System.exit(0);
+            }
+        });
     }
 
     // MODIFIES: this

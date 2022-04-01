@@ -1,6 +1,6 @@
 # Book Reading Tracker
-### CPSC 210 Term Project Phase 1
-#### *By Shawn Xihao Wu*
+## CPSC 210 Term Project
+### *By Shawn Xihao Wu*
 
 
 This application is intended to provide anyone who loves to read a good way 
@@ -12,7 +12,7 @@ that could help me stay on top of my readings, and I hope that it could
 help others who feel the same.
 
 
-## User Stories:
+### User Stories:
 
 - As a user, I want to be able to add books to my bookshelf
 - As a user, I want to classify books by genre when adding books to the bookshelf
@@ -31,3 +31,28 @@ help others who feel the same.
 
 - As a user, I want to be able to save current collection of books to file
 - As a user, I want to be able to load previous collection of books from file and resume exactly where I left off last time
+
+### Phase 4: Task 2
+
+```
+Thu Mar 31 19:53:50 PDT 2022
+Added <Intro to Topology> to bookshelf!
+
+Thu Mar 31 19:54:03 PDT 2022
+Progress of <Intro to Topology> on bookshelf updated: 
+Now on page 215 of 516! 41.7% read!
+
+Thu Mar 31 19:54:21 PDT 2022
+Added <Crime and Punishment> to bookshelf!
+
+Thu Mar 31 19:54:42 PDT 2022
+Added <War and Peace> to bookshelf!
+
+Thu Mar 31 19:54:56 PDT 2022
+Progress of <War and Peace> on bookshelf updated:
+Now on page 35 of 381! 9.2% read!
+
+Thu Mar 31 19:55:05 PDT 2022
+Progress of <Crime and Punishment> on bookshelf updated: 
+Now on page 151 of 161! 93.8% read!
+```

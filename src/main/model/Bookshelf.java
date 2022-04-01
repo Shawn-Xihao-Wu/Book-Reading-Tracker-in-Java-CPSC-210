@@ -44,10 +44,13 @@ public class Bookshelf implements Writable {
     // REQUIRES: book is not null
     // MODIFIES: this
     // EFFECTS: update the number of books on bookshelf by one
-    // and add the book to the collection of books
+    // and add the book to the collection of books.
+    // Also, log an event to EventLog whenever this method is called.
     public void addBook(Book book) {
         this.numberOfBooks++;
         this.collectionOfBooks.add(book);
+
+        EventLog.getInstance().logEvent(new Event("Added <" + book.getTitle() + "> to bookshelf!\n"));
     }
 
 

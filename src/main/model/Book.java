@@ -39,10 +39,14 @@ public class Book implements Writable {
     // MODIFIES: this
     // EFFECTS: Update the # of pages I have read
     // and calculate my new progress,
-    // the progress is in percentage rounded to the nearest tenth
+    // the progress is in percentage rounded to the nearest tenth,
+    // and log an event to EventLog whenever this method is called.
     public void progressUpdate(int newPage) {
         this.pagesRead = newPage;
         progress = percentageHelper();
+
+        EventLog.getInstance().logEvent(new Event("Progress of <" + getTitle() + "> on bookshelf updated: \n"
+                + "Now on page " + getPagesRead() + " of " + getTotalPages() + "! " + getProgress() + "% read!\n"));
     }
 
     // REQUIRES: the input string cannot be empty
